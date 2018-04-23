@@ -1,0 +1,60 @@
+---
+title: "FPS"
+author: "Rajanish Rajagopalan"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Project Background & Purpose
+
+ABC Bank conducted a large marketing campaign to understand the customers and their banking needs. The sales team is trying to use the data obtained by the marketing team to improve the bank product sales using machine learning techniques and improve the success rate of sales team by using a sales qualified lead instead of a generic customer contact list.
+
+## Project Request
+
+This project will build a solution that can learn from the marketing data and process large volume of potential customer information and provide a condensed list of customers who are highly likely to buy the bank's products.
+
+## Project Goal
+
+The goal of the project is to help the sales team improve their efficiency in contacting the right customers. This system will help the sales team better focus their resources on reaching the customers who need the banks products and improve the sales efficiency.
+
+## Success Criteria
+
+The sales team currently follows X number of sales leads and closing Y product sales. The objective is to improve the efficiency of the sales team by reducing the number of sales leads pursued to X1 and increasing the number of actual products sold to Y1. Thus increasing the success rate.
+
+```{r success_criteria, echo = FALSE, results='asis'}
+library(knitr)
+x <- data.frame('CurrentProcess' = c('Sales leads X','Products Sold Y','Success Rate (Y/X)'), 'FutureProcess' = c('Sales leads X$^{1}$','Products Sold Y$^{1}$','Success Rate (Y$^{1}$/X$^{1}$)'))
+kable(x,caption = 'Measuring Success')
+```
+
+## Stakeholders
+
+The Sales management team will be the primary sponsor of the project. The sales team will also provide the overall direction, guide the team in key decisions and provide sign of for key deliverables. The IT department will be responsible for the design, build and support the solution with inputs from the sales team. The IT department will also document the project and get sign off from the stakeholders at key milestones. Sales team members will be the direct users of this application and the sales management team will ensure the new process is followed by the sales team after implementation. Marketing team will provide SME support to the usage of the marketing data. The Project management team will track the project progress, budget and report to the Sales management and ABC Bank board.
+
+## Project Scope 
+
+The current project scope is limited to the analysis of the marketing data and building a solution for the sales team to reach out to the right, potential customers. This project will not collect additional data or features, or validate/improve the marketing data, or do additional research on the customers or products. This project also will not analyze or improve any internal sales functions/processes. This project will not provide solutions/recommendations on the sales performance or bank products.
+
+## Project Risks
+
+This project is vulnerable to the same risks as any solutions using statistical methods. The solution is highly dependent on the correlation of the data features to the expected outcome. Change in customer behavior, economy, competing products, and other factors can affect the effectiveness of the project solution. The IT and Sales teams will communicate any lack of correlation or change in other factors that lead to poor prediction quality during the development phase and take appropriate corrective action. Every organization has some internal inertia and resistance to change and the sales team might reject the predictions/recommendations of the solution. The Sales team will train and educate the users to mitigate this risk.
+
+## Proposed Business Process
+
+The project will analyze the marketing data and build a machine learning model to classify new customer data. The system will use the classifier to process new customer data every day and generate a subset of the customers who are most likely to buy the new product and send it to the sales team as leads. The sales team will use the condensed list instead of the complete new customer data and improve its efficiency.
+
+## Project Timelines
+
+The project will take about 12 weeks to build out and deploy with the key phases outlined below.
+
+```{r milestones, echo = FALSE, results='asis'}
+library(knitr)
+x <- data.frame('Task' = c('Requirement Documentation','Design','Build','Test','Deploy','Warranty'), 'EstimatedDurationWeeks' = c('1','3','3','2','1','2'))
+kable(x,caption = 'Project Milestones')
+```
+
