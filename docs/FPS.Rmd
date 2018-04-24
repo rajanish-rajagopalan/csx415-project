@@ -24,7 +24,7 @@ The goal of the project is to help the sales team improve their efficiency in co
 
 ## Success Criteria
 
-The sales team currently follows X number of sales leads and closing Y product sales. The objective is to improve the efficiency of the sales team by reducing the number of sales leads pursued to X1 and increasing the number of actual products sold to Y1. Thus increasing the success rate.
+The sales team currently follows X number of sales leads and closing Y product sales. The ideal objective is to improve the efficiency of the sales team by reducing the number of sales leads pursued from X to Y without losing any potential sales. The success criteria for the project is to **reduce X by 50%** without losing more than **20% of potential sales**.
 
 ```{r success_criteria, echo = FALSE, results='asis'}
 library(knitr)
@@ -42,11 +42,11 @@ The current project scope is limited to the analysis of the marketing data and b
 
 ## Project Risks
 
-This project is vulnerable to the same risks as any solutions using statistical methods. The solution is highly dependent on the correlation of the data features to the expected outcome. Change in customer behavior, economy, competing products, and other factors can affect the effectiveness of the project solution. The IT and Sales teams will communicate any lack of correlation or change in other factors that lead to poor prediction quality during the development phase and take appropriate corrective action. Every organization has some internal inertia and resistance to change and the sales team might reject the predictions/recommendations of the solution. The Sales team will train and educate the users to mitigate this risk.
+This project is vulnerable to the same risks as any solutions using statistical methods. The solution is highly dependent on the correlation of the data features to the expected outcome. Change in customer behavior, economy, competing products, and other factors can affect the effectiveness of the project solution. The IT and Sales teams will communicate any lack of correlation or change in other factors that lead to poor prediction quality during the development phase and take appropriate corrective action. Every organization has some internal inertia and resistance to change and the sales team might reject the predictions/recommendations of the solution. The Sales team will train and educate the users to mitigate this risk. If the project is not able to reduce the sales leads and maintain the potential sales at the expected metrics mentioned in the Success criteria, the management will revist the actual numbers achieved and make a decision at that point.
 
-## Proposed Business Process
+## Proposed Business Process and Deployment
 
-The project will analyze the marketing data and build a machine learning model to classify new customer data. The system will use the classifier to process new customer data every day and generate a subset of the customers who are most likely to buy the new product and send it to the sales team as leads. The sales team will use the condensed list instead of the complete new customer data and improve its efficiency.
+The project will analyze the marketing data and build a machine learning model to classify new customer data. The system will use the classifier to process new customer data every day and generate a subset of the customers who are most likely to buy the new product and send it to the sales team as leads. The current Sales team business process will be changed to use the new condensed list instead of the complete new customer data and improve its efficiency.
 
 ## Project Timelines
 
