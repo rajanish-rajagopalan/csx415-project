@@ -1,3 +1,3 @@
-Using the lessons learnt from these two models, evaluate the correlation of the features to the outcome. 
-Try modifying the input features to these models.
-Explore additional features provided in the extended data set.
+Tweak the meta parameters of the models and see if we can improve the precision.
+Review the features in the dataset that correlate well to the output and try to improve the model by augumenting these features.
+Explore additional features provided in the extended data set to see if that improves the model.
