@@ -1,3 +1,5 @@
 # Example Unit Testing Script
 
-expect_that(1, equals(1))
+expect_length(read.csv('/home/rajanish/Berkeley/DataScience/BankSales/data/bank.csv'), 17)
+
+expect_equal(1, 1)

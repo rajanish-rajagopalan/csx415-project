@@ -1,0 +1,2 @@
+# Simple package to build a Neural Network classifier for the Bank sales data.
+exportPattern("^[^\\.]")
