@@ -1,4 +1,3 @@
-# Simple package to build a Neural Network classifier for the Bank sales data.
 #' Simple package to build a Neural Network classifier for the Bank sales data.
 #'
 #' @return confusion matrix table
