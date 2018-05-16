@@ -24,7 +24,7 @@ x1 <- toString(length(which(raw_data[["y"]]=="yes")))
 y1 <- toString(length(which(raw_data[["y"]]=="yes")))
 y1x1 <- '100%'
 #library(glm)
-model <- glm(y ~ age + job + marital + education + default + balance + housing + loan + contact + duration + campaign + pdays + previous + poutcome, data = raw_data,family = binomial())
+model <- glm(y ~ age + job + marital + education + default + balance + housing + loan + contact + duration + campaign + pdays + previous + poutcome, data = train_data,family = binomial())
 ```
 
 The marketing team took the customer sales leads and conducted a survey to determine the actual number of customers interested in buying bank products. The marketing team collected these customer attributes (`r toString(model$call$formula[3])`).
@@ -42,9 +42,9 @@ kable(table,caption = 'Measuring Success: Ideal Scenario')
 
 
 ## Model Performance
-As an initial step, we will build a simple Random Forest classifier and establish a baseline Model performance. 
+As an initial step, we will build a simple Linear classifier and evaluate Model performance. 
 
-<!We will split the available data into **training (`r nrow(train_data)` at 80%)** and **testing (`r nrow(test_data)` at 20%)** data sets.>
+Splitting the available data into **training (`r nrow(raw_data) * 0.8` at 80%)** and **testing (`r nrow(raw_data) * 0.2` at 20%)** data sets.
 
 ```{r Model_Performance, echo = FALSE, results='asis'}
 library(knitr,stringr)
@@ -52,7 +52,8 @@ library(knitr,stringr)
 x <- toString(nrow(raw_data))
 y <- toString(length(which(raw_data[["y"]]=="yes")))
 yx <- paste(toString((length(which(raw_data[["y"]]=="yes")))/nrow(raw_data)*100),'%')
-confusion <- table(raw_data$y, predict(model,type='response')> 0.5)
+features <- names(train_data)[!names(train_data) %in% "y"]
+confusion <- table(test_data$y, predict(model,test_data[,features], type='response')> 0.5)
 x1 <- toString(confusion[2,2] + confusion[1,2])
 y1 <- toString(confusion[2,2])
 y1x1 <- paste(toString(confusion[2,2]/(confusion[2,2] + confusion[1,2])*100),'%')

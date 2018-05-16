@@ -44,14 +44,15 @@ kable(table,caption = 'Measuring Success: Ideal Scenario')
 ## Model Performance
 As an initial step, we will build a simple Random Forest classifier and establish a baseline Model performance. 
 
-<!We will split the available data into **training (`r nrow(train_data)` at 80%)** and **testing (`r nrow(test_data)` at 20%)** data sets.>
+Splitting the available data into **training (`r nrow(raw_data) * 0.8` at 80%)** and **testing (`r nrow(raw_data) * 0.2` at 20%)** data sets.
 
 ```{r Model_Performance, echo = FALSE, results='asis'}
 library(knitr,stringr)
 x <- toString(nrow(raw_data))
 y <- toString(length(which(raw_data[["y"]]=="yes")))
 yx <- paste(toString((length(which(raw_data[["y"]]=="yes")))/nrow(raw_data)*100),'%')
-confusion <- table(raw_data$y, predict(model,type='class'))
+features <- names(train_data)[!names(train_data) %in% "y"]
+confusion <- table(test_data$y, predict(model,test_data[,features], type='class'))
 x1 <- toString(confusion[2,2] + confusion[1,2])
 y1 <- toString(confusion[2,2])
 y1x1 <- paste(toString(confusion[2,2]/(confusion[2,2] + confusion[1,2])*100),'%')

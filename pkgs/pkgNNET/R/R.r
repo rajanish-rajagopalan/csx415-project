@@ -6,7 +6,7 @@
 #' @examples fn_nnet()
 fn_nnet <- function() {
     #require("caret")
-    library("caret")
+    suppressWarnings(suppressMessages(library("caret")))
 
     # Read the csv file and convert the dependent variable to binary class
     raw_data <- read.csv("/home/rajanish/Berkeley/DataScience/BankSales/data/bank.csv")
@@ -26,7 +26,7 @@ fn_nnet <- function() {
     # 5, repeats = 5)
     features <- names(train_data)[!names(train_data) %in% "y"]
     model_nnet <- train(x = train_data[, features], y = train_data[, "y"], method = "nnet"  #,trControl=fitControl
-, tuneLength = 2, maxit = 1)  ### increase the iterations later
+, tuneLength = 2, maxit = 100, trace = FALSE)  ### increase the iterations later
 
     # Save the model to the project data folder
     model_file = "/home/rajanish/Berkeley/DataScience/BankSales/data/model_nnet.Rdata"
@@ -37,7 +37,7 @@ fn_nnet <- function() {
 
     # Review Confusion Matrix and statistics
     conf_matrix <- confusionMatrix(predictions, test_data[, "y"])
-    print('The result')
-    print(conf_matrix$table)
+    #print('The result')
+    #print(conf_matrix$table)
     return (conf_matrix$table)
 }
