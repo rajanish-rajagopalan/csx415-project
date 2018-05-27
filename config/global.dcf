@@ -14,3 +14,4 @@ data_tables: FALSE
 attach_internal_libraries: FALSE
 cache_loaded_data: TRUE
 sticky_variables: NONE
+home: '/home/rajanish/Berkeley/DataScience/BankSales/'

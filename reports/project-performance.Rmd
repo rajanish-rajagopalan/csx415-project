@@ -1,0 +1,73 @@
+---
+title: "Project Performance"
+author: "Rajanish Rajagopalan"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Initial Analysis 
+
+```{r echo=FALSE, message=FALSE}
+raw_data <- read.csv('/home/rajanish/Berkeley/DataScience/BankSales/data/bank.csv')
+ind <- sample(2,nrow(raw_data), replace = TRUE, prob = c(0.8,0.2))
+train_data <- raw_data[ind==1,]
+test_data <- raw_data[ind==2,]
+x <- toString(nrow(raw_data))
+y <- toString(length(which(raw_data[["y"]]=="yes")))
+yx <- paste(toString((length(which(raw_data[["y"]]=="yes")))/nrow(raw_data)*100),'%')
+x1 <- toString(length(which(raw_data[["y"]]=="yes")))
+y1 <- toString(length(which(raw_data[["y"]]=="yes")))
+y1x1 <- '100%'
+library(randomForest)
+model <- randomForest(y ~ age + job + marital + education + default + balance + housing + loan + contact + duration + campaign + pdays + previous + poutcome, data = raw_data)
+```
+
+The marketing team took the customer sales leads and conducted a survey to determine the actual number of customers interested in buying bank products. The marketing team collected these customer attributes (`r toString(model$call$formula[3])`).
+
+A total of **`r x` (X)** customers participated in the Marketing team research of whom **`r y` (Y)** were interested in buying. The objective project is to get **X$^{1}$** closest to **Y** i.e. a full success rate.
+
+```{r Initial_Analysis, echo = FALSE, results='asis'}
+library(knitr,stringr)
+table <- data.frame('CurrentProcess' = c(stringr::str_c('Sales leads X: ', x),stringr::str_c('Products Sold Y: ', y)
+                                    ,stringr::str_c('Success Rate (Y/X): ', yx)), 
+                    'IdealProcess' = c(stringr::str_c('Sales leads X$^{1}$: ',x1),stringr::str_c('Products Sold Y$^{1}$: ', y1)
+                                    ,stringr::str_c('Success Rate (Y$^{1}$/X$^{1}$): ',y1x1)))
+kable(table,caption = 'Measuring Success: Ideal Scenario')
+```
+
+
+## Model Performance
+As an initial step, we will build a simple Random Forest classifier and establish a baseline Model performance. 
+
+<!We will split the available data into **training (`r nrow(train_data)` at 80%)** and **testing (`r nrow(test_data)` at 20%)** data sets.>
+
+```{r Model_Performance, echo = FALSE, results='asis'}
+library(knitr,stringr)
+
+x <- toString(nrow(raw_data))
+y <- toString(length(which(raw_data[["y"]]=="yes")))
+yx <- paste(toString((length(which(raw_data[["y"]]=="yes")))/nrow(raw_data)*100),'%')
+x1 <- toString(model$confusion[2,2] + model$confusion[1,2])
+y1 <- toString(model$confusion[2,2])
+y1x1 <- paste(toString(model$confusion[2,2]/(model$confusion[2,2] + model$confusion[1,2])*100),'%')
+table <- data.frame('CurrentProcess' = c(stringr::str_c('Sales leads X: ', x),stringr::str_c('Products Sold Y: ', y)
+                                    ,stringr::str_c('Success Rate (Y/X): ', yx)), 
+                    'FutureProcess' = c(stringr::str_c('Sales leads X$^{1}$: ',x1),stringr::str_c('Products Sold Y$^{1}$: ', y1)
+                                    ,stringr::str_c('Success Rate (Y$^{1}$/X$^{1}$): ',y1x1)))
+kable(table,caption = 'Measuring Success: Baseline')
+```
+
+Using the standard Confusion matrix to evalute the model performance.
+```{r Confusion, echo = FALSE, results='asis'}
+library(knitr,stringr)
+
+kable(model$confusion,caption = 'Confusion Matrix: Baseline')
+```
+
+## Conclusion
+Even though the Sales effort reduced and the success rate is higher, we are losing a lot of potential customers. We will have to significantly improve the performance.
