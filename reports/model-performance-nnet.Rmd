@@ -1,0 +1,72 @@
+---
+title: "Model Performance - Neural Net"
+author: "Rajanish Rajagopalan"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Initial Analysis 
+
+```{r echo=FALSE, message=FALSE}
+data <- myUtils::load_data_raw()
+train_data <- data[[1]]
+test_data <- data[[2]]
+features <- names(train_data)[!names(train_data) %in% "y"]
+x1 <- toString(length(which(data[[1]][['y']]=='yes')) + length(which(data[[2]][['y']]=='yes')))
+y1 <- x1
+y1x1 <- '100%'
+x <- toString(nrow(data[[1]]) + nrow(data[[2]]))
+y <- x1
+yx <- paste(toString(as.integer(y)/as.integer(x)*100),'%')
+```
+
+The marketing team took the customer sales leads and conducted a survey to determine the actual number of customers interested in buying bank products. The marketing team collected these customer attributes (`r toString(features)`).
+
+A total of **`r x` (X)** customers participated in the Marketing team research of whom **`r y` (Y)** were interested in buying. The objective project is to get **X$^{1}$** closest to **Y** i.e. a full success rate.
+
+```{r Initial_Analysis, echo = FALSE, results='asis'}
+library(knitr,stringr)
+table <- data.frame('CurrentProcess' = c(stringr::str_c('Sales leads X: ', x),stringr::str_c('Products Sold Y: ', y)
+                                    ,stringr::str_c('Success Rate (Y/X): ', yx)), 
+                    'IdealProcess' = c(stringr::str_c('Sales leads X$^{1}$: ',x1),stringr::str_c('Products Sold Y$^{1}$: ', y1)
+                                    ,stringr::str_c('Success Rate (Y$^{1}$/X$^{1}$): ',y1x1)))
+kable(table,caption = 'Measuring Success: Ideal Scenario')
+```
+
+
+## Model Performance
+As an initial step, we will build a simple Random Forest classifier and establish a baseline Model performance. 
+
+Splitting the available data into **training (`r nrow(train_data)` at 80%)** and **testing (`r nrow(test_data)` at 20%)** data sets.
+
+```{r Model_Performance, echo = FALSE, results='asis', warning = FALSE}
+library(knitr,stringr,caret)
+library(pkgNNET)
+confusion <- pkgNNET::score()
+x1 <- toString(length(data[[2]][['y']]))
+y1 <- toString(length(which(data[[2]][['y']]=='yes')))
+y1x1 <- paste(toString(as.integer(y1)/as.integer(x1)*100),'%')
+x2 <- toString(confusion[2,2] + confusion[1,2])
+y2 <- toString(confusion[2,2])
+y2x2 <- paste(toString(confusion[2,2]/(confusion[2,2] + confusion[1,2])*100),'%')
+table <- data.frame('CurrentProcess' = c(stringr::str_c('Sales leads X: ', x1),stringr::str_c('Products Sold Y: ', y1)
+                                    ,stringr::str_c('Success Rate (Y/X): ', y1x1)), 
+                    'FutureProcess' = c(stringr::str_c('Sales leads X$^{1}$: ',x2),stringr::str_c('Products Sold Y$^{1}$: ', y2)
+                                    ,stringr::str_c('Success Rate (Y$^{1}$/X$^{1}$): ',y2x2)))
+kable(table,caption = 'Measuring Success: Baseline')
+```
+
+Using the standard Confusion matrix to evalute the model performance.
+```{r Confusion, echo = FALSE, results='asis'}
+library(knitr,stringr)
+
+kable(confusion,caption = 'Confusion Matrix: Baseline')
+```
+
+## Conclusion
+Even though the Sales effort reduced and the success rate is higher, we are losing a lot of potential customers. We will have to significantly improve the performance.
